@@ -3,7 +3,7 @@ var xot = [];
 var kov = [];
 var gayl = [];
 var arj = [];
-//var human = new Human();
+var human = new Human();
 var H = 60;//prompt("hight");
 var W = 50;//prompt("Wight");
 
@@ -121,7 +121,7 @@ function draw() {
         }
     }
 	
-	//human.check();
+	human.check();
 
     for (i in arj) {
         arj[i].eat(i);

@@ -511,7 +511,7 @@ class Brownbear {
     }
 }
 
-/*class Human {
+class Human {
     constructor() {
         this.can = [];
         this.x = 0;
@@ -600,7 +600,7 @@ class Brownbear {
 			var y = newcord[1];
 			this.x = 0;
 			this.y = 0
-			arr[y][x] = 3;
+//			arr[y][x] = 3;
 			gayl.push(new Wolf(x,y,3));
 			}
 			arr[0][0] = 5;
@@ -618,4 +618,4 @@ class Brownbear {
         }
 
     }
-}*/
+}
