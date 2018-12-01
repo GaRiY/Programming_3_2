@@ -1,13 +1,9 @@
-class Cow {
+class Cow extends LivingCreature {
     constructor(x, y, index) {
-        this.can = [];
+
+        super(x, y, index);
+
         this.ttd = 5;
-        this.mul = 0;
-        this.x = x;
-        this.y = y;
-        this.index = index;
-
-
     }
     getNewCoordinates() {
         this.directions = [
@@ -26,16 +22,7 @@ class Cow {
 
     yntrelVandak(ind) {
         this.getNewCoordinates();
-        this.can = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < arr[0].length && y >= 0 && y < arr.length) {
-                if (arr[y][x] == ind) {
-                    this.can.push([x, y]);
-                }
-            }
-        }
+        super.yntrelVandak(ind);
     }
 
     move(i) {

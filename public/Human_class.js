@@ -27,7 +27,6 @@ class Human {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
             if (x >= 0 && x < arr[0].length && y >= 0 && y < arr.length) {
-			console.log(x,y);
                 if (arr[y][x] == 0) {
                     this.can.push([x, y]);
                 }
@@ -86,8 +85,8 @@ class Human {
 			var x = newcord[0];
 			var y = newcord[1];
 			this.x = 0;
-			this.y = 0
-//			arr[y][x] = 3;
+			this.y = 0;
+			console.log(gayl + ", length: " + gayl.length);
 			gayl.push(new Wolf(x,y,3));
 			}
 			arr[0][0] = 5;
