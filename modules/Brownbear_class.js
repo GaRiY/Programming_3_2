@@ -61,12 +61,12 @@ module.exports = class Brownbear extends LivingCreature{
         ];
     }
 
-    move(i) {
+    move(i,arr) {
         if (this.ttd <= 0) {
             this.kill(i);
         }
         else {
-            this.yntrelVandak(0);
+            this.yntrelVandak(0,arr);
 
             if (this.can.length != 0) {
                 var newgy = random(this.can);
@@ -82,8 +82,8 @@ module.exports = class Brownbear extends LivingCreature{
     }
 
 
-    eat(i) {
-        this.yntrelVandak(3);
+    eat(i,arr) {
+        this.yntrelVandak(3,arr);
         if (this.can.length != 0) {
             var newgy = random(this.can);
             var x = newgy[0];
@@ -104,7 +104,7 @@ module.exports = class Brownbear extends LivingCreature{
             this.multiplying();
         }
         else {
-            this.yntrelVandak(2);
+            this.yntrelVandak(2,arr);
             if (this.can.length != 0) {
                 var newgy = random(this.can);
                 var x = newgy[0];
@@ -125,7 +125,7 @@ module.exports = class Brownbear extends LivingCreature{
                 this.multiplying();
             }
             else {
-                this.yntrelVandak(1);
+                this.yntrelVandak(1,arr);
 
                 if (this.can.length != 0) {
                     var newgy = random(this.can);
@@ -145,7 +145,7 @@ module.exports = class Brownbear extends LivingCreature{
                     }
                 }
                 else {
-                    this.move(i);
+                    this.move(i,arr);
                 }
             }
         }
@@ -158,7 +158,7 @@ module.exports = class Brownbear extends LivingCreature{
 
     multiplying() {
         this.mul++;
-        this.yntrelVandak(3);
+        this.yntrelVandak(3,arr);
         if (this.can.length != 0) {
             for (var i in gayl) {
                 for (var i in this.can) {

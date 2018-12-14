@@ -41,7 +41,7 @@ module.exports = class Human {
 		}
     }
 
-    yntrelVandak(ind) {
+    yntrelVandak(ind,arr) {
         var x = Math.floor(random(W));
         var y = Math.floor(random(H));
         if (arr[y][x] == 0) {
@@ -56,51 +56,51 @@ module.exports = class Human {
         }
     }
 
-    check(xot,kov,gayl,arj) {
+    check(xot,kov,gayl,arj,arr) {
         if (xot.length == 0) {
-            var newcord = this.yntrelVandak(1);
+            var newcord = this.yntrelVandak(1,arr);
 			if(typeof(newcord) != "undefined"){
 			var x = newcord[0];
 			var y = newcord[1];
 			this.x = 0;
 			this.y = 0;
-			xot.push(new Grass(x,y,1));
+			var zang = [x,y,"Grass",5];
+			return zang;
 			}
-			arr[0][0] = 5;
         }
         else if (kov.length == 0) {
-            var newcord = this.yntrelVandak(2);
+            var newcord = this.yntrelVandak(2,arr);
 			if(typeof(newcord) != "undefined"){
 			var x = newcord[0];
 			var y = newcord[1];
 			this.x = 0;
 			this.y = 0;
-			kov.push(new Cow(x,y,2));
+			var zang = [x,y,"Cow",5];
+			return zang;
 			}
-			arr[0][0] = 5;
         }
         else if (gayl.length <= 1) {
-            var newcord = this.yntrelVandak(3);
+            var newcord = this.yntrelVandak(3,arr);
 			if(typeof(newcord) != "undefined"){
 			var x = newcord[0];
 			var y = newcord[1];
 			this.x = 0;
 			this.y = 0;
 			console.log(gayl + ", length: " + gayl.length);
-			gayl.push(new Wolf(x,y,3));
+			var zang = [x,y,"Wolf",5];
+			return zang;
 			}
-			arr[0][0] = 5;
         }
         else if (arj.length <= 1) {
-            var newcord = this.yntrelVandak(4);
+            var newcord = this.yntrelVandak(4,arr);
 			if(typeof(newcord) != "undefined"){
 			var x = newcord[0];
 			var y = newcord[1];
 			this.x = 0;
 			this.y = 0;
-			arj.push(new Brownbear(x,y,4));
+			var zang = [x,y,"Brownbear",5];
+			return zang;
 			}
-			arr[0][0] = 5;
         }
 
     }

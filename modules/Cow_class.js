@@ -22,17 +22,17 @@ module.exports = class Cow extends LivingCreature {
 
 
 
-    yntrelVandak(ind) {
+    yntrelVandak(ind,arr) {
         this.getNewCoordinates();
-        super.yntrelVandak(ind);
+        super.yntrelVandak(ind,arr);
     }
 
-    move(i) {
+    move(i,arr) {
         if (this.ttd <= 0) {
             this.kill(i);
         }
         else {
-            this.yntrelVandak(0);
+            this.yntrelVandak(0,arr);
 
             if (this.can.length != 0) {
                 var newcw = random(this.can);
@@ -49,8 +49,8 @@ module.exports = class Cow extends LivingCreature {
 
 
 
-    eat(i) {
-        this.yntrelVandak(1);
+    eat(i,arr) {
+        this.yntrelVandak(1,arr);
         if (this.can.length != 0) {
             var newcw = random(this.can);
             var x = newcw[0];
@@ -68,10 +68,10 @@ module.exports = class Cow extends LivingCreature {
                 this.ttd++;
             }
 
-            this.multiplying();
+            this.multiplying(arr);
         }
         else {
-            this.move(i);
+            this.move(i,arr);
         }
     }
 
@@ -80,9 +80,9 @@ module.exports = class Cow extends LivingCreature {
         kov.splice(i, 1);
     }
 
-    multiplying() {
+    multiplying(arr) {
         this.mul++;
-        this.yntrelVandak(0);
+        this.yntrelVandak(0,arr);
         if (this.mul >= 3) {
             var newcw = random(this.can);
             var x = newcw[0];

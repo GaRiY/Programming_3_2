@@ -17,7 +17,7 @@ module.exports = class LivingCreature {
         ];
 
     }
-    yntrelVandak(ind) {
+    yntrelVandak(ind,arr) {
         this.can = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];

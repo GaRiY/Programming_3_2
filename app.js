@@ -106,19 +106,32 @@ server.listen(3000);
 
 setInterval(function(){
   
-  human.check(xot,kov,gayl,arj);
-
+  var newClassCreatin = human.check(xot,kov,gayl,arj,arr);
+  if(typeof(newClassCreatin) != "undefined"){
+    if(newClassCreatin[2] == "Grass"){
+      xot.push(new Grass(newClassCreatin[0],newClassCreatin[1],1));
+    }
+    else if(newClassCreatin[2] == "Cow"){
+      kov.push(new Cow(newClassCreatin[0],newClassCreatin[1],2));
+    }
+    else if(newClassCreatin[2] == "Wolf"){
+      gayl.push(new Wolf(newClassCreatin[0],newClassCreatin[1],3));
+    }
+    else if(newClassCreatin[2] == "Brownbear"){
+      arj.push(new Brownbear(newClassCreatin[0],newClassCreatin[1],4));
+    }
+}
   for (i in arj) {
-      arj[i].eat(i);
+      arj[i].eat(i,arr);
   }
   for (i in gayl) {
-      gayl[i].eat(i);
+      gayl[i].eat(i,arr);
   }
   for (i in kov) {
-      kov[i].eat(i);
+      kov[i].eat(i,arr);
   }
   for (i in xot) {
-      xot[i].multiplying();
+      xot[i].multiplying(arr);
   } 
 
   io.sockets.emit("matrix", arr);

@@ -38,12 +38,12 @@ module.exports = class Wolf extends LivingCreature{
         ];
     }
 
-    move(i) {
+    move(i,arr) {
         if (this.ttd <= 0) {
             this.kill(i);
         }
         else {
-            this.yntrelVandak(0);
+            this.yntrelVandak(0,arr);
 
             if (this.can.length != 0) {
                 var newgy = random(this.can);
@@ -57,7 +57,7 @@ module.exports = class Wolf extends LivingCreature{
                 this.goa = 0;
             }
             else {
-                this.yntrelVandak(1);
+                this.yntrelVandak(1,arr);
 
                 if (this.can.length != 0) {
                     var newgy = random(this.can);
@@ -75,8 +75,8 @@ module.exports = class Wolf extends LivingCreature{
     }
 
 
-    eat(i) {
-        this.yntrelVandak(2);
+    eat(i,arr) {
+        this.yntrelVandak(2,arr);
         if (this.can.length != 0) {
             var newgy = random(this.can);
             var x = newgy[0];
@@ -94,7 +94,7 @@ module.exports = class Wolf extends LivingCreature{
                 this.ttd += 2;
             }
 
-            this.multiplying();
+            this.multiplying(arr);
         }
         else {
             this.move(i);
@@ -106,9 +106,9 @@ module.exports = class Wolf extends LivingCreature{
         gayl.splice(i, 1);
     }
 
-    multiplying() {
+    multiplying(arr) {
         this.mul++;
-        this.yntrelVandak(3);
+        this.yntrelVandak(3,arr);
         if (this.can.length != 0) {
             for (var i in gayl) {
                 for (var i in this.can) {
