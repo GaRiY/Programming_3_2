@@ -28,6 +28,47 @@ for (var y = 0; y < H; y++) {
 }
 arr[0][0] = 5;
 
+    //1
+    while (kanachQanak > 0) {
+      var x = Math.floor(Math.random()* W);
+      var y = Math.floor(Math.random()* H);
+      if (arr[y][x] == 0) {
+          arr[y][x] = 1;
+          kanachQanak--;
+      }
+
+  }
+  //2
+  while (cowQanak > 0) {
+      var x = Math.floor(Math.random()* W);
+      var y = Math.floor(Math.random()* H);
+      if (arr[y][x] == 0) {
+          arr[y][x] = 2;
+          cowQanak--;
+      }
+  }
+
+  //3
+  while (gaylQanak > 0) {
+      var x = Math.floor(Math.random()* W);
+      var y = Math.floor(Math.random()* H);
+      if (arr[y][x] == 0) {
+          arr[y][x] = 3;
+          gaylQanak--;
+      }
+  }
+
+  //4
+  while (arjQanak > 0) {
+      var x = Math.floor(Math.random()* W);
+      var y = Math.floor(Math.random()* H);
+      if (arr[y][x] == 0) {
+          arr[y][x] = 4;
+          arjQanak--;
+      }
+
+  }
+
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);

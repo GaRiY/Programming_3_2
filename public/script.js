@@ -3,46 +3,6 @@ function setup() {
     createCanvas(W * side, H * side);
     background('#acacac');
 
-    //1
-    while (kanachQanak > 0) {
-        var x = Math.floor(random(W));
-        var y = Math.floor(random(H));
-        if (arr[y][x] == 0) {
-            arr[y][x] = 1;
-            kanachQanak--;
-        }
-
-    }
-    //2
-    while (cowQanak > 0) {
-        var x = Math.floor(random(W));
-        var y = Math.floor(random(H));
-        if (arr[y][x] == 0) {
-            arr[y][x] = 2;
-            cowQanak--;
-        }
-    }
-
-    //3
-    while (gaylQanak > 0) {
-        var x = Math.floor(random(W));
-        var y = Math.floor(random(H));
-        if (arr[y][x] == 0) {
-            arr[y][x] = 3;
-            gaylQanak--;
-        }
-    }
-
-    //4
-    while (arjQanak > 0) {
-        var x = Math.floor(random(W));
-        var y = Math.floor(random(H));
-        if (arr[y][x] == 0) {
-            arr[y][x] = 4;
-            arjQanak--;
-        }
-
-    }
 
     for (var y = 0; y < arr.length; y++) {
         for (var x = 0; x < arr[y].length; x++) {
