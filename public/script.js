@@ -1,6 +1,7 @@
 var W = 50;
 var H = 60;
 var side = 10;
+var arr;
 
 function setup() {
     frameRate(10);
@@ -39,3 +40,11 @@ function draw() {
     }
 
 } 
+
+function main() {
+    socket = io();
+	socket.on("matrix",function(data){
+		arr = data;
+    })
+}
+window.onload = main;

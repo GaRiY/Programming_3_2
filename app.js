@@ -106,7 +106,7 @@ server.listen(3000);
 
 setInterval(function(){
   
-  human.check();
+  human.check(xot,kov,gayl,arj);
 
   for (i in arj) {
       arj[i].eat(i);

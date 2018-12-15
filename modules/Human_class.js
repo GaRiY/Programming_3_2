@@ -1,4 +1,4 @@
-class Human {
+module.exports = class Human {
     constructor() {
         this.can = [];
         this.x = 0;
@@ -56,7 +56,7 @@ class Human {
         }
     }
 
-    check() {
+    check(xot,kov,gayl,arj) {
         if (xot.length == 0) {
             var newcord = this.yntrelVandak(1);
 			if(typeof(newcord) != "undefined"){

@@ -3,8 +3,7 @@ var LivingCreature = require("./LivingCreature");
 module.exports = class Brownbear extends LivingCreature{
     constructor(x, y, index) {
         super(x, y, index);
-        this.genarr = ["male", "female"];
-        this.gender = random(this.genarr);
+        this.gender = function(){var varForRandomNumber = Math.floor(Math.random()* 10);if(varForRandomNumber > 5){return "male"}else{return "female"}};
         this.ttd = 30;
 
 
