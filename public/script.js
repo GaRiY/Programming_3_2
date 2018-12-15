@@ -2,29 +2,6 @@ function setup() {
     frameRate(10);
     createCanvas(W * side, H * side);
     background('#acacac');
-
-
-    for (var y = 0; y < arr.length; y++) {
-        for (var x = 0; x < arr[y].length; x++) {
-            if (arr[y][x] == 1) {
-                var gr = new Grass(x, y, 1);
-                xot.push(gr);
-            }
-            if (arr[y][x] == 2) {
-                var cw = new Cow(x, y, 2);
-                kov.push(cw);
-            }
-            if (arr[y][x] == 3) {
-                var gy = new Wolf(x, y, 3);
-                gayl.push(gy);
-            }
-            if (arr[y][x] == 4) {
-                var ar = new Brownbear(x, y, 4);
-                arj.push(ar);
-            }
-        }
-    }
-
 }
 
 function draw() {
@@ -56,21 +33,5 @@ function draw() {
             rect(o, i, side, side);
         }
     }
-	
-	human.check();
-
-    for (i in arj) {
-        arj[i].eat(i);
-    }
-    for (i in gayl) {
-        gayl[i].eat(i);
-    }
-    for (i in kov) {
-        kov[i].eat(i);
-    }
-    for (i in xot) {
-        xot[i].multiplying();
-    }
-
 
 } 
