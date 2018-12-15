@@ -1,3 +1,7 @@
+var W = 50;
+var H = 60;
+var side = 10;
+
 function setup() {
     frameRate(10);
     createCanvas(W * side, H * side);

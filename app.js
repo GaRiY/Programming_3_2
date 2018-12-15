@@ -10,10 +10,9 @@ var kov = [];
 var gayl = [];
 var arj = [];
 var human = new Human();
-var H = 60;//prompt("hight");
-var W = 50;//prompt("Wight");
+var H = 60;
+var W = 50;
 
-var side = 10;
 var kanachQanak = (H * W) * 30 / 100;
 var cowQanak = 10;
 var gaylQanak = 2;
@@ -90,20 +89,6 @@ arr[0][0] = 5;
     }
 }
 
-human.check();
-
-for (i in arj) {
-    arj[i].eat(i);
-}
-for (i in gayl) {
-    gayl[i].eat(i);
-}
-for (i in kov) {
-    kov[i].eat(i);
-}
-for (i in xot) {
-    xot[i].multiplying();
-}
 
 var express = require('express');
 var app = express();
@@ -119,12 +104,24 @@ app.get('/', function (req, res) {
 
 server.listen(3000);
 
-io.on('connection', function (socket) {
-  for(var i in messages) {
-    io.sockets.emit("display message", messages[i]);
+setInterval(function(){
+  
+  human.check();
+
+  for (i in arj) {
+      arj[i].eat(i);
   }
-  socket.on("send message", function (data) {
-      messages.push(data);
-      io.sockets.emit("display message", data);
-  });
-});
+  for (i in gayl) {
+      gayl[i].eat(i);
+  }
+  for (i in kov) {
+      kov[i].eat(i);
+  }
+  for (i in xot) {
+      xot[i].multiplying();
+  } 
+
+  io.sockets.emit("matrix", arr);
+
+}, 1000)
+
