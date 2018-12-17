@@ -23,7 +23,7 @@ module.exports = class Human {
 }
 
 
-    findsiel(ind) {
+    findsiel(ind,arr) {
         this.can = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
@@ -43,7 +43,7 @@ module.exports = class Human {
 		}
     }
 
-    yntrelVandak(ind,arr) {
+    yntrelVandak(ind,arr,W,H) {
         var x = Math.floor(Math.random()* W);
         var y = Math.floor(Math.random()* H);
         if (arr[y][x] == 0) {
@@ -52,15 +52,15 @@ module.exports = class Human {
 			this.x = x;
 			this.y = y;
 			this.getNewCoordinates();
-            var newcordfc = this.findsiel(ind);
+            var newcordfc = this.findsiel(ind,arr);
 			arr[y][x] = 0;
 			return(newcordfc);
         }
     }
 
-    check(xot,kov,gayl,arj,arr) {
+    check(xot,kov,gayl,arj,arr,W,H) {
         if (xot.length == 0) {
-            var newcord = this.yntrelVandak(1,arr);
+            var newcord = this.yntrelVandak(1,arr,W,H);
 			if(typeof(newcord) != "undefined"){
 			var x = newcord[0];
 			var y = newcord[1];
@@ -71,7 +71,7 @@ module.exports = class Human {
 			}
         }
         else if (kov.length == 0) {
-            var newcord = this.yntrelVandak(2,arr);
+            var newcord = this.yntrelVandak(2,arr,W,H);
 			if(typeof(newcord) != "undefined"){
 			var x = newcord[0];
 			var y = newcord[1];
@@ -82,7 +82,7 @@ module.exports = class Human {
 			}
         }
         else if (gayl.length <= 1) {
-            var newcord = this.yntrelVandak(3,arr);
+            var newcord = this.yntrelVandak(3,arr,W,H);
 			if(typeof(newcord) != "undefined"){
 			var x = newcord[0];
 			var y = newcord[1];
@@ -94,7 +94,7 @@ module.exports = class Human {
 			}
         }
         else if (arj.length <= 1) {
-            var newcord = this.yntrelVandak(4,arr);
+            var newcord = this.yntrelVandak(4,arr,W,H);
 			if(typeof(newcord) != "undefined"){
 			var x = newcord[0];
 			var y = newcord[1];

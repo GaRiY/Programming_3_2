@@ -11,36 +11,36 @@ module.exports = class Wolf extends LivingCreature{
     }
     getNewCoordinates() {
         this.directions = [
-            // [this.x - 1, this.y - 1],
-            // [this.x, this.y - 1],
-            // [this.x + 1, this.y - 1],
-            // [this.x - 1, this.y],
-            // [this.x + 1, this.y],
-            // [this.x - 1, this.y + 1],
-            // [this.x, this.y + 1],
-            // [this.x + 1, this.y + 1],
-            // [this.x - 2, this.y - 2],
-            // [this.x - 1, this.y - 2],
-            // [this.x, this.y - 2],
-            // [this.x + 1, this.y - 2],
-            // [this.x + 2, this.y - 2],
-            // [this.x - 2, this.y - 1],
-            // [this.x + 2, this.y - 1],
-            // [this.x - 2, this.y],
-            // [this.x + 2, this.y],
-            // [this.x - 2, this.y + 1],
-            // [this.x + 2, this.y + 1],
-            // [this.x - 2, this.y + 2],
-            // [this.x - 1, this.y + 2],
-            // [this.x, this.y + 2],
-            // [this.x + 1, this.y + 2],
-            // [this.x + 2, this.y + 2]
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1],
+            [this.x - 2, this.y - 2],
+            [this.x - 1, this.y - 2],
+            [this.x, this.y - 2],
+            [this.x + 1, this.y - 2],
+            [this.x + 2, this.y - 2],
+            [this.x - 2, this.y - 1],
+            [this.x + 2, this.y - 1],
+            [this.x - 2, this.y],
+            [this.x + 2, this.y],
+            [this.x - 2, this.y + 1],
+            [this.x + 2, this.y + 1],
+            [this.x - 2, this.y + 2],
+            [this.x - 1, this.y + 2],
+            [this.x, this.y + 2],
+            [this.x + 1, this.y + 2],
+            [this.x + 2, this.y + 2]
         ];
     }
 
-    move(i,arr) {
+    move(i,arr,gayl) {
         if (this.ttd <= 0) {
-            this.kill(i);
+            this.kill(i,gayl,arr);
         }
         else {
             this.yntrelVandak(0,arr);
@@ -75,7 +75,7 @@ module.exports = class Wolf extends LivingCreature{
     }
 
 
-    eat(i,arr) {
+    eat(i,arr,kov,gayl) {
         this.yntrelVandak(2,arr);
         if (this.can.length != 0) {
             var newgy = this.can[Math.floor(Math.random()* this.can.length)];
@@ -94,19 +94,19 @@ module.exports = class Wolf extends LivingCreature{
                 this.ttd += 2;
             }
 
-            this.multiplying(arr);
+            this.multiplying(arr,gayl);
         }
         else {
-            this.move(i);
+            this.move(i,arr,gayl);
         }
     }
 
-    kill(i) {
+    kill(i,gayl,arr) {
         arr[this.y][this.x] = this.goa;
         gayl.splice(i, 1);
     }
 
-    multiplying(arr) {
+    multiplying(arr,gayl) {
         this.mul++;
         this.yntrelVandak(3,arr);
         if (this.can.length != 0) {

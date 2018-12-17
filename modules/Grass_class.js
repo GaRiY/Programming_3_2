@@ -1,7 +1,7 @@
 var LivingCreature = require("./LivingCreature");
 
 module.exports = class Grass extends LivingCreature{
-    multiplying(arr) {
+    multiplying(arr,xot) {
         this.mul++;
         if (this.mul >= 8) {
             this.mul = 0;

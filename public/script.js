@@ -2,11 +2,13 @@ var W = 50;
 var H = 60;
 var side = 10;
 var arr;
+var fps = 0;
 
 function setup() {
-    frameRate(10);
+    frameRate(fps);
     createCanvas(W * side, H * side);
     background('#acacac');
+    noLoop();
 }
 
 function draw() {
@@ -44,7 +46,10 @@ function draw() {
 function main() {
     socket = io();
 	socket.on("matrix",function(data){
-		arr = data;
+        arr = data;
+        console.log(arr);
+        redraw();
     })
+    fps = 10;
 }
 window.onload = main;

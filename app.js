@@ -13,62 +13,23 @@ var human = new Human();
 var H = 60;
 var W = 50;
 
-var kanachQanak = (H * W) * 30 / 100;
-var cowQanak = 10;
-var gaylQanak = 2;
-var arjQanak = 2;
 
-for (var y = 0; y < H; y++) {
-  arr[y] = [];
-  for (var x = 0; x < W; x++) {
-      arr[y].push(0);
-  }
+var express = require('express');
+var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
-}
-arr[0][0] = 5;
+app.use(express.static("./public"));
 
-    //1
-    while (kanachQanak > 0) {
-      var x = Math.floor(Math.random()* W);
-      var y = Math.floor(Math.random()* H);
-      if (arr[y][x] == 0) {
-          arr[y][x] = 1;
-          kanachQanak--;
-      }
+app.get('/', function (req, res) {
+   res.redirect('index.html');
+});
 
-  }
-  //2
-  while (cowQanak > 0) {
-      var x = Math.floor(Math.random()* W);
-      var y = Math.floor(Math.random()* H);
-      if (arr[y][x] == 0) {
-          arr[y][x] = 2;
-          cowQanak--;
-      }
-  }
+server.listen(3000);
 
-  //3
-  while (gaylQanak > 0) {
-      var x = Math.floor(Math.random()* W);
-      var y = Math.floor(Math.random()* H);
-      if (arr[y][x] == 0) {
-          arr[y][x] = 3;
-          gaylQanak--;
-      }
-  }
+arr = require("./modules/MatrixCreator");
 
-  //4
-  while (arjQanak > 0) {
-      var x = Math.floor(Math.random()* W);
-      var y = Math.floor(Math.random()* H);
-      if (arr[y][x] == 0) {
-          arr[y][x] = 4;
-          arjQanak--;
-      }
-
-  }
-
-  for (var y = 0; y < arr.length; y++) {
+for (var y = 0; y < arr.length; y++) {
     for (var x = 0; x < arr[y].length; x++) {
         if (arr[y][x] == 1) {
             var gr = new Grass(x, y, 1);
@@ -89,49 +50,34 @@ arr[0][0] = 5;
     }
 }
 
-
-var express = require('express');
-var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-var messages = [];
-
-app.use(express.static("."));
-
-app.get('/', function (req, res) {
-   res.redirect('index.html');
-});
-
-server.listen(3000);
-
 setInterval(function(){
   
-  var newClassCreatin = human.check(xot,kov,gayl,arj,arr);
-  if(typeof(newClassCreatin) != "undefined"){
-    if(newClassCreatin[2] == "Grass"){
-      xot.push(new Grass(newClassCreatin[0],newClassCreatin[1],1));
+  var newClassCreating = human.check(xot,kov,gayl,arj,arr,W,H);
+  if(typeof(newClassCreating) != "undefined"){
+    if(newClassCreating[2] == "Grass"){
+      xot.push(new Grass(newClassCreating[0],newClassCreating[1],1));
     }
-    else if(newClassCreatin[2] == "Cow"){
-      kov.push(new Cow(newClassCreatin[0],newClassCreatin[1],2));
+    else if(newClassCreating[2] == "Cow"){
+      kov.push(new Cow(newClassCreating[0],newClassCreating[1],2));
     }
-    else if(newClassCreatin[2] == "Wolf"){
-      gayl.push(new Wolf(newClassCreatin[0],newClassCreatin[1],3));
+    else if(newClassCreating[2] == "Wolf"){
+      gayl.push(new Wolf(newClassCreating[0],newClassCreating[1],3));
     }
-    else if(newClassCreatin[2] == "Brownbear"){
-      arj.push(new Brownbear(newClassCreatin[0],newClassCreatin[1],4));
+    else if(newClassCreating[2] == "Brownbear"){
+      arj.push(new Brownbear(newClassCreating[0],newClassCreating[1],4));
     }
 }
   for (i in arj) {
       arj[i].eat(i,arr,xot,kov,gayl);
   }
   for (i in gayl) {
-      gayl[i].eat(i,arr);
+      gayl[i].eat(i,arr,kov,gayl);
   }
   for (i in kov) {
-      kov[i].eat(i,arr);
+      kov[i].eat(i,arr,xot,kov);
   }
   for (i in xot) {
-      xot[i].multiplying(arr);
+      xot[i].multiplying(arr,xot);
   } 
 
   io.sockets.emit("matrix", arr);

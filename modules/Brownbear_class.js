@@ -61,15 +61,15 @@ module.exports = class Brownbear extends LivingCreature{
         ];
     }
 
-    move(i,arr) {
+    move(i,arr,gayl) {
         if (this.ttd <= 0) {
-            this.kill(i);
+            this.kill(i,gayl,arr);
         }
         else {
             this.yntrelVandak(0,arr);
 
             if (this.can.length != 0) {
-                var newgy = random(this.can);
+                var newgy = this.can[Math.floor(Math.random()* this.can.length)];
                 var x = newgy[0];
                 var y = newgy[1];
                 arr[y][x] = 4;
@@ -122,7 +122,7 @@ module.exports = class Brownbear extends LivingCreature{
                     this.ttd += 3;
                 }
 
-                this.multiplying();
+                this.multiplying(arr);
             }
             else {
                 this.yntrelVandak(1,arr);
@@ -145,18 +145,18 @@ module.exports = class Brownbear extends LivingCreature{
                     }
                 }
                 else {
-                    this.move(i,arr);
+                    this.move(i,arr,gayl);
                 }
             }
         }
     }
 
-    kill(i) {
+    kill(i,gayl,arr) {
         arr[this.y][this.x] = 0
         gayl.splice(i, 1);
     }
 
-    multiplying() {
+    multiplying(arr) {
         this.mul++;
         this.yntrelVandak(3,arr);
         if (this.can.length != 0) {

@@ -27,9 +27,9 @@ module.exports = class Cow extends LivingCreature {
         super.yntrelVandak(ind,arr);
     }
 
-    move(i,arr) {
+    move(i,arr,kov) {
         if (this.ttd <= 0) {
-            this.kill(i);
+            this.kill(i,kov,arr);
         }
         else {
             this.yntrelVandak(0,arr);
@@ -49,7 +49,7 @@ module.exports = class Cow extends LivingCreature {
 
 
 
-    eat(i,arr) {
+    eat(i,arr,xot,kov) {
         this.yntrelVandak(1,arr);
         if (this.can.length != 0) {
             var newcw = this.can[Math.floor(Math.random()* this.can.length)];
@@ -68,19 +68,19 @@ module.exports = class Cow extends LivingCreature {
                 this.ttd++;
             }
 
-            this.multiplying(arr);
+            this.multiplying(arr,kov);
         }
         else {
-            this.move(i,arr);
+            this.move(i,arr,kov);
         }
     }
 
-    kill(i) {
+    kill(i,kov,arr) {
         arr[this.y][this.x] = 0;
         kov.splice(i, 1);
     }
 
-    multiplying(arr) {
+    multiplying(arr,kov) {
         this.mul++;
         this.yntrelVandak(0,arr);
         if (this.mul >= 3) {
