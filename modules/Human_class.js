@@ -1,9 +1,11 @@
 module.exports = class Human {
-    constructor() {
+    constructor(W,H) {
         this.can = [];
         this.x = 0;
         this.y = 0;
-        this.index = 5;
+		this.index = 5;
+		var W = W;
+		var H = H;
 
     }
 
@@ -33,7 +35,7 @@ module.exports = class Human {
             }
         }
 		if(this.can.length != 0){
-        var idk = random(this.can);
+        var idk = this.can[Math.floor(Math.random()* this.can.length)];
 		var x = idk[0];
 		var y = idk[1];
         arr[y][x] = ind;
@@ -42,8 +44,8 @@ module.exports = class Human {
     }
 
     yntrelVandak(ind,arr) {
-        var x = Math.floor(random(W));
-        var y = Math.floor(random(H));
+        var x = Math.floor(Math.random()* W);
+        var y = Math.floor(Math.random()* H);
         if (arr[y][x] == 0) {
             arr[y][x] = 5;
 			arr[0][0] = 10;

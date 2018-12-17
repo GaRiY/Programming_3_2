@@ -122,7 +122,7 @@ setInterval(function(){
     }
 }
   for (i in arj) {
-      arj[i].eat(i,arr);
+      arj[i].eat(i,arr,xot,kov,gayl);
   }
   for (i in gayl) {
       gayl[i].eat(i,arr);

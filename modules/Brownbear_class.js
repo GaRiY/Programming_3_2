@@ -82,10 +82,10 @@ module.exports = class Brownbear extends LivingCreature{
     }
 
 
-    eat(i,arr) {
+    eat(i,arr,xot,kov,gayl) {
         this.yntrelVandak(3,arr);
         if (this.can.length != 0) {
-            var newgy = random(this.can);
+            var newgy = this.can[Math.floor(Math.random()* this.can.length)];
             var x = newgy[0];
             var y = newgy[1];
             arr[y][x] = 4;
@@ -106,7 +106,7 @@ module.exports = class Brownbear extends LivingCreature{
         else {
             this.yntrelVandak(2,arr);
             if (this.can.length != 0) {
-                var newgy = random(this.can);
+                var newgy = this.can[Math.floor(Math.random()* this.can.length)];
                 var x = newgy[0];
                 var y = newgy[1];
                 arr[y][x] = 4;
@@ -128,7 +128,7 @@ module.exports = class Brownbear extends LivingCreature{
                 this.yntrelVandak(1,arr);
 
                 if (this.can.length != 0) {
-                    var newgy = random(this.can);
+                    var newgy = this.can[Math.floor(Math.random()* this.can.length)];
                     var x = newgy[0];
                     var y = newgy[1];
                     arr[y][x] = 4;
@@ -166,7 +166,7 @@ module.exports = class Brownbear extends LivingCreature{
                     var y = this.can[i][1];
                     if (gayl[i].x == x && gayl[i].y == y && gayl[i].gender != this.gender) {
                         if (this.mul >= 5) {
-                            var newgy = random(this.can);
+                            var newgy = this.can[Math.floor(Math.random()* this.can.length)];
                             var x = newgy[0];
                             var y = newgy[1];
                             arr[y][x] = 2;

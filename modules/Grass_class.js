@@ -7,7 +7,7 @@ module.exports = class Grass extends LivingCreature{
             this.mul = 0;
             this.yntrelVandak(0,arr);
             if (this.can.length != 0) {
-                var newgr = random(this.can);
+                var newgr = this.can[Math.floor(Math.random()* this.can.length)];
                 var x = newgr[0];
                 var y = newgr[1];
                 arr[y][x] = 1;

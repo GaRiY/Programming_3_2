@@ -35,7 +35,7 @@ module.exports = class Cow extends LivingCreature {
             this.yntrelVandak(0,arr);
 
             if (this.can.length != 0) {
-                var newcw = random(this.can);
+                var newcw = this.can[Math.floor(Math.random()* this.can.length)];
                 var x = newcw[0];
                 var y = newcw[1];
                 arr[y][x] = 2;
@@ -52,7 +52,7 @@ module.exports = class Cow extends LivingCreature {
     eat(i,arr) {
         this.yntrelVandak(1,arr);
         if (this.can.length != 0) {
-            var newcw = random(this.can);
+            var newcw = this.can[Math.floor(Math.random()* this.can.length)];
             var x = newcw[0];
             var y = newcw[1];
             arr[y][x] = 2;
@@ -84,7 +84,7 @@ module.exports = class Cow extends LivingCreature {
         this.mul++;
         this.yntrelVandak(0,arr);
         if (this.mul >= 3) {
-            var newcw = random(this.can);
+            var newcw = this.can[Math.floor(Math.random()* this.can.length)];
             var x = newcw[0];
             var y = newcw[1];
             arr[y][x] = 2;
