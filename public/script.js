@@ -5,7 +5,7 @@ var arr;
 var fps = 0;
 
 function setup() {
-    frameRate(fps);
+    frameRate(10);
     createCanvas(W * side, H * side);
     background('#acacac');
     noLoop();
@@ -47,7 +47,6 @@ function main() {
     socket = io();
 	socket.on("matrix",function(data){
         arr = data;
-        console.log(arr);
         redraw();
     })
     fps = 10;

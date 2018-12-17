@@ -67,6 +67,8 @@ setInterval(function(){
       arj.push(new Brownbear(newClassCreating[0],newClassCreating[1],4));
     }
 }
+arr[0][0] = 5;
+
   for (i in arj) {
       arj[i].eat(i,arr,xot,kov,gayl);
   }

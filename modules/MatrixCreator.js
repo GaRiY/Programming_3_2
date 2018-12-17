@@ -14,7 +14,6 @@ for (var y = 0; y < H; y++) {
     }
   
 }
-arr[0][0] = 5;
 
 //1
 while (kanachQanak > 0) {
@@ -56,4 +55,7 @@ while (arjQanak > 0) {
     }
 
 }
+
+arr[0][0] = 5;
+
 module.exports = arr;
