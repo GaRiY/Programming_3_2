@@ -3,15 +3,19 @@ var H = 60;
 var side = 10;
 var arr;
 var fps = 0;
+var bool = false;
+var img;
 
 function setup() {
     frameRate(10);
-    createCanvas(W * side, H * side);
-    background('#acacac');
+    createCanvas(W * side + 650, 651);
+    background('White');
     noLoop();
+    img = loadImage("../bg.jpg");
 }
 
 function draw() {
+    if(bool){
     for (var k = 0; k < arr.length; k++) {
         for (var l = 0; l < arr[k].length; l++) {
             if (arr[k][l] == 1) {
@@ -41,6 +45,8 @@ function draw() {
         }
     }
 
+}else{bool = true;}
+    image(img,500,0);
 } 
 
 function main() {
