@@ -16,9 +16,17 @@ var stat = {
     "Wolf": 0,
     "Grass": 0,
     "Brownbear": 0,
-    "Cow": 0
+    "Cow": 0,
+    "Died_Wolfs": 0,
+    "Eated_Grass": 0,
+    "Died_Brownbears": 0,
+    "Died_Cows": 0,
+    "Added_Wolfs": 0,
+    "Added_Grass": 0,
+    "Added_Brownbears": 0,
+    "Added_Cows": 0
 }
-
+var length = [];
 
 var express = require('express');
 var app = express();
@@ -57,6 +65,11 @@ for (var y = 0; y < arr.length; y++) {
     }
 }
 
+length.push(gayl.length);
+length.push(xot.length);
+length.push(arj.length);
+length.push(kov.length);
+
 setInterval(function () {
 
     var newClassCreating = human.check(xot, kov, gayl, arj, arr, W, H);
@@ -89,14 +102,49 @@ setInterval(function () {
         xot[i].multiplying(arr, xot);
     }
 
-    io.sockets.emit("matrix", arr);
-
+    //stat = [Wolf,Grass,Brownbear,Cow,Died_Wolfs,Eated_Grass,Died_Brownbears,Died_Cows]
     stat.Wolf = gayl.length;
     stat.Grass = xot.length;
     stat.Brownbear = arj.length;
     stat.Cow = kov.length;
-    
+
+    if (gayl.length < length[0]) {
+        stat.Died_Wolfs += length[0] - gayl.length;
+        length[0] = gayl.length;
+    }
+    else if (gayl.length > length[0]) {
+        stat.Added_Wolfs += gayl.length - length[0];
+        length[0] = gayl.length;
+    }
+    if (xot.length < length[1]) {
+        stat.Eated_Grass += length[1] - xot.length;
+        length[1] = xot.length;
+    }
+    else if (xot.length > length[1]) {
+        stat.Added_Grass += xot.length - length[1];
+        length[1] = xot.length;
+    }
+    if (arj.length < length[2]) {
+        stat.Died_Brownbears += length[2] - arj.length;
+        length[2] = arj.length;
+    }
+    else if (arj.length > length[2]) {
+        stat.Added_Brownbears += arj.length - length[2];
+        length[2] = arj.length;
+    }
+    if (kov.length < length[3]) {
+        stat.Died_Cows += length[3] - kov.length;
+        length[3] = kov.length;
+    }
+    else if (kov.length > length[3]) {
+        stat.Added_Cows += kov.length - length[3];
+        length[3] = kov.length;
+    }
+
+
     var myJSON = JSON.stringify(stat);
     fs.writeFileSync("stat.json", myJSON);
+
+    io.sockets.emit("matrix", [arr, stat]);
 }, 1000)
 
