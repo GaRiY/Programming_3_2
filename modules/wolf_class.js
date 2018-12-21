@@ -38,6 +38,11 @@ module.exports = class Wolf extends LivingCreature{
         ];
     }
 
+    yntrelVandak(ind,arr){
+        this.getNewCoordinates();
+        super.yntrelVandak(ind,arr);
+    }
+
     move(i,arr,gayl) {
         if (this.ttd <= 0) {
             this.kill(i,gayl,arr);

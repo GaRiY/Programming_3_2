@@ -61,9 +61,14 @@ module.exports = class Brownbear extends LivingCreature{
         ];
     }
 
-    move(i,arr,gayl) {
+    yntrelVandak(ind,arr){
+        this.getNewCoordinates();
+        super.yntrelVandak(ind,arr);
+    }
+
+    move(i,arr,arj) {
         if (this.ttd <= 0) {
-            this.kill(i,gayl,arr);
+            this.kill(i,arj,arr);
         }
         else {
             this.yntrelVandak(0,arr);
@@ -82,7 +87,7 @@ module.exports = class Brownbear extends LivingCreature{
     }
 
 
-    eat(i,arr,xot,kov,gayl) {
+    eat(i,arr,xot,kov,gayl,arj) {
         this.yntrelVandak(3,arr);
         if (this.can.length != 0) {
             var newgy = this.can[Math.floor(Math.random()* this.can.length)];
@@ -101,7 +106,7 @@ module.exports = class Brownbear extends LivingCreature{
                 this.ttd += 5;
             }
 
-            this.multiplying();
+            this.multiplying(arr);
         }
         else {
             this.yntrelVandak(2,arr);
@@ -145,15 +150,15 @@ module.exports = class Brownbear extends LivingCreature{
                     }
                 }
                 else {
-                    this.move(i,arr,gayl);
+                    this.move(i,arr,arj);
                 }
             }
         }
     }
 
-    kill(i,gayl,arr) {
+    kill(i,arj,arr) {
         arr[this.y][this.x] = 0
-        gayl.splice(i, 1);
+        arj.splice(i, 1);
     }
 
     multiplying(arr) {

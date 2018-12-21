@@ -70,7 +70,7 @@ setInterval(function(){
 arr[0][0] = 5;
 
   for (i in arj) {
-      arj[i].eat(i,arr,xot,kov,gayl);
+      arj[i].eat(i,arr,xot,kov,gayl,arj);
   }
   for (i in gayl) {
       gayl[i].eat(i,arr,kov,gayl);
