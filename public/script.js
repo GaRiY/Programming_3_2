@@ -6,6 +6,7 @@ var fps = 0;
 var bool = false;
 var img;
 var stat;
+var season;
 
 function setup() {
     frameRate(10);
@@ -16,6 +17,7 @@ function setup() {
 }
 
 function draw() {
+    stroke("Black");
     if(bool){
     for (var k = 0; k < arr.length; k++) {
         for (var l = 0; l < arr[k].length; l++) {
@@ -45,21 +47,28 @@ function draw() {
             rect(o, i, side, side);
         }
     }
-
+    
 }else{bool = true;}
-    image(img,500,-40,img.length/1.2,img.height/1.2);
-    fill("Red");
-    rect(600, 100, side, side);
-    text("Wolf: " + stat.Wolf + "(-" + stat.Died_Wolfs + ")" + "(+" + stat.Added_Wolfs + ")", 610 + side, 100 + side);
-    fill("Green");
-    rect(600, 130, side, side);
-    text("Grass: " + stat.Grass + "(-" + stat.Eated_Grass + ")" + "(+" + stat.Added_Grass + ")", 610 + side, 130 + side);
-    fill("#935116");
-    rect(600, 160, side, side);
-    text("Brownbear: " + stat.Brownbear + "(-" + stat.Died_Brownbears + ")" + "(+" + stat.Added_Brownbears + ")", 610 + side, 160 + side);
-    fill("Yellow");
-    rect(600, 190, side, side);
-    text("Cow: " + stat.Cow + "(-" + stat.Died_Cows + ")" + "(+" + stat.Added_Cows + ")", 610 + side, 190 + side);
+    noStroke()
+    image(img,520,0,img.width/3,600);
+    fill("Red");//Red,#7B617D,#A97B77
+    rect(550, 30, side, side);
+    fill("#21ABE3");
+    text("Wolf: " + stat.Wolf + "(-" + stat.Died_Wolfs + ")" + "(+" + stat.Added_Wolfs + ")", 560 + side, 30 + side);
+    fill("Green");//Green,#1EB172,#33AB95
+    rect(550, 60, side, side);
+    fill("#21ABE3");
+    text("Grass: " + stat.Grass + "(-" + stat.Eated_Grass + ")" + "(+" + stat.Added_Grass + ")", 560 + side, 60 + side);
+    fill("#935116");//#935116,#567472,#837970
+    rect(550, 90, side, side);
+    fill("#21ABE3");
+    text("Brownbear: " + stat.Brownbear + "(-" + stat.Died_Brownbears + ")" + "(+" + stat.Added_Brownbears + ")", 560 + side, 90 + side);
+    fill("Yellow");//Yellow,#83BD72,#A1BE98
+    rect(550, 120, side, side);
+    fill("#21ABE3");
+    text("Cow: " + stat.Cow + "(-" + stat.Died_Cows + ")" + "(+" + stat.Added_Cows + ")", 560 + side, 120 + side);
+    fill("#2583fc");
+    text(season,520,0);
 } 
 
 function main() {
@@ -67,6 +76,7 @@ function main() {
 	socket.on("matrix",function(data){
         arr = data[0];
         stat = data[1];//  [Wolf,Grass,Brownbear,Cow,Died_Wolfs,Eated_Grass,Died_Brownbears,Died_Cows]
+        season = data[2];
         redraw();
     })
     fps = 10;

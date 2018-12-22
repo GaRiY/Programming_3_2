@@ -88,7 +88,6 @@ module.exports = class Human {
 			var y = newcord[1];
 			this.x = 0;
 			this.y = 0;
-			console.log(gayl + ", length: " + gayl.length);
 			var zang = [x,y,"Wolf",5];
 			return zang;
 			}

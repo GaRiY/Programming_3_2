@@ -1,4 +1,5 @@
 var LivingCreature = require("./LivingCreature");
+var eated;
 
 module.exports = class Cow extends LivingCreature {
     constructor(x, y, index) {
@@ -59,6 +60,7 @@ module.exports = class Cow extends LivingCreature {
             for (var i in xot) {
                 if (xot[i].x == x && xot[i].y == y) {
                     xot.splice(i, 1);
+                    eated = "Grass";
                 }
             }
             arr[this.y][this.x] = 0;
@@ -90,7 +92,7 @@ module.exports = class Cow extends LivingCreature {
             arr[y][x] = 2;
             kov.push(new Cow(x, y, 2));
             this.mul = 0;
-
         }
+        return eated;
     }
 }

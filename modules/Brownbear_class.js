@@ -1,11 +1,11 @@
 var LivingCreature = require("./LivingCreature");
+var eated;
 
 module.exports = class Brownbear extends LivingCreature{
     constructor(x, y, index) {
         super(x, y, index);
         this.gender = function(){var varForRandomNumber = Math.floor(Math.random()* 10);if(varForRandomNumber > 5){return "male"}else{return "female"}};
         this.ttd = 30;
-
 
     }
     getNewCoordinates() {
@@ -97,6 +97,7 @@ module.exports = class Brownbear extends LivingCreature{
             for (var i in gayl) {
                 if (gayl[i].x == x && gayl[i].y == y) {
                     gayl.splice(i, 1);
+                    eated = "Wolf";
                 }
             }
             arr[this.y][this.x] = 0;
@@ -118,6 +119,7 @@ module.exports = class Brownbear extends LivingCreature{
                 for (var i in kov) {
                     if (kov[i].x == x && kov[i].y == y) {
                         kov.splice(i, 1);
+                        eated = "Cow";
                     }
                 }
                 arr[this.y][this.x] = 0;
@@ -140,6 +142,7 @@ module.exports = class Brownbear extends LivingCreature{
                     for (var i in xot) {
                         if (xot[i].x == x && xot[i].y == y) {
                             xot.splice(i, 1);
+                            eated = "Grass";
                         }
                     }
                     arr[this.y][this.x] = 0;
@@ -148,6 +151,8 @@ module.exports = class Brownbear extends LivingCreature{
                     if (this.ttd < 10) {
                         this.ttd += 1;
                     }
+
+                    this.multiplying(arr,arj);
                 }
                 else {
                     this.move(i,arr,arj);
@@ -177,11 +182,11 @@ module.exports = class Brownbear extends LivingCreature{
                             arr[y][x] = 2;
                             arj.push(new Wolf(x, y, 3));
                             this.mul = 0;
-
                         }
                     }
                 }
             }
         }
+        return eated;
     }
 }

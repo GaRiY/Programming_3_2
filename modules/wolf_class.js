@@ -80,7 +80,7 @@ module.exports = class Wolf extends LivingCreature{
     }
 
 
-    eat(i,arr,kov,gayl) {
+    eat(i,arr,kov,gayl,eatedCows) {
         this.yntrelVandak(2,arr);
         if (this.can.length != 0) {
             var newgy = this.can[Math.floor(Math.random()* this.can.length)];
@@ -90,6 +90,7 @@ module.exports = class Wolf extends LivingCreature{
             for (var i in kov) {
                 if (kov[i].x == x && kov[i].y == y) {
                     kov.splice(i, 1);
+                    eatedCows++;
                 }
             }
             arr[this.y][this.x] = 0;

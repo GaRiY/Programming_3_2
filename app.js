@@ -27,6 +27,12 @@ var stat = {
     "Added_Cows": 0
 }
 var length = [];
+var seasons = ["Spring", "Summer", "Autumn", "Winter"];
+var currentSeason = seasons[0];
+var NumberForSeasonChanging = 0;
+var eatedCows = 0;
+var eatedWolfs = 0;
+var eatedGrass = 0;
 
 var express = require('express');
 var app = express();
@@ -71,33 +77,71 @@ length.push(arj.length);
 length.push(kov.length);
 
 setInterval(function () {
+    if (currentSeason != seasons[3]) {
+        var newClassCreating = human.check(xot, kov, gayl, arj, arr, W, H);
+        if (typeof (newClassCreating) != "undefined") {
+            if (newClassCreating[2] == "Grass") {
+                xot.push(new Grass(newClassCreating[0], newClassCreating[1], 1));
+            }
+            else if (newClassCreating[2] == "Cow") {
+                kov.push(new Cow(newClassCreating[0], newClassCreating[1], 2));
+            }
+            else if (newClassCreating[2] == "Wolf") {
+                gayl.push(new Wolf(newClassCreating[0], newClassCreating[1], 3));
+            }
+            else if (newClassCreating[2] == "Brownbear") {
+                arj.push(new Brownbear(newClassCreating[0], newClassCreating[1], 4));
+            }
+        }
+        arr[0][0] = 5;
 
-    var newClassCreating = human.check(xot, kov, gayl, arj, arr, W, H);
-    if (typeof (newClassCreating) != "undefined") {
-        if (newClassCreating[2] == "Grass") {
-            xot.push(new Grass(newClassCreating[0], newClassCreating[1], 1));
+        for (i in arj) {
+            var varForStats1 = arj[i].eat(i, arr, xot, kov, gayl, arj);
+            if (varForStats1 == "Wolf"){
+                eatedWolfs++;
+            }
+            else if (varForStats1 == "Cow"){
+                eatedCows++;
+            }
+            else if (varForStats1 == "Grass"){
+                eatedGrass++;
+            }
+            varForStats1 = 0;
         }
-        else if (newClassCreating[2] == "Cow") {
-            kov.push(new Cow(newClassCreating[0], newClassCreating[1], 2));
-        }
-        else if (newClassCreating[2] == "Wolf") {
-            gayl.push(new Wolf(newClassCreating[0], newClassCreating[1], 3));
-        }
-        else if (newClassCreating[2] == "Brownbear") {
-            arj.push(new Brownbear(newClassCreating[0], newClassCreating[1], 4));
-        }
+        stat.Died_Wolfs += eatedWolfs;
+        stat.Died_Cows += eatedCows;
+        stat.Eated_Grass += eatedGrass;
+        eatedWolfs = 0;
+        eatedCows = 0;
+        eatedGrass = 0;
+        length[0] = gayl.length;
+        length[3] = kov.length;
+        length[1] = xot.length;
+
     }
-    arr[0][0] = 5;
-
-    for (i in arj) {
-        arj[i].eat(i, arr, xot, kov, gayl, arj);
+    else {
+        for (i in arj) {
+            arj[i].ttd -= 1;
+        }
     }
     for (i in gayl) {
-        gayl[i].eat(i, arr, kov, gayl);
+        gayl[i].eat(i, arr, kov, gayl,eatedCows);
     }
+    stat.Died_Cows += eatedCows;
+    eatedCows = 0;
+    length[3] = kov.length;
+
     for (i in kov) {
-        kov[i].eat(i, arr, xot, kov);
+        var varForStats3 = kov[i].eat(i, arr, xot, kov);
+        if (varForStats3 == "Grass"){
+            eatedGrass++;
+        }
+        varForStats3 = 0;
     }
+    stat.Eated_Grass += eatedGrass;
+    eatedGrass = 0;
+    length[1] = xot.length;
+
     for (i in xot) {
         xot[i].multiplying(arr, xot);
     }
@@ -108,6 +152,7 @@ setInterval(function () {
     stat.Brownbear = arj.length;
     stat.Cow = kov.length;
 
+    //statistics calculation
     if (gayl.length < length[0]) {
         stat.Died_Wolfs += length[0] - gayl.length;
         length[0] = gayl.length;
@@ -140,11 +185,28 @@ setInterval(function () {
         stat.Added_Cows += kov.length - length[3];
         length[3] = kov.length;
     }
+    //Statistics calculation (end)
 
+    //Season changing
+    if (NumberForSeasonChanging == 10) {
+        currentSeason = seasons[1];
+    }
+    else if (NumberForSeasonChanging == 20) {
+        currentSeason = seasons[2];
+    }
+    else if (NumberForSeasonChanging == 30) {
+        currentSeason = seasons[3];
+    }
+    else if (NumberForSeasonChanging >= 40) {
+        NumberForSeasonChanging = 0;
+        currentSeason = seasons[0];
+    }
+    NumberForSeasonChanging += 1;
+    //Season changing (end)
 
     var myJSON = JSON.stringify(stat);
     fs.writeFileSync("stat.json", myJSON);
 
-    io.sockets.emit("matrix", [arr, stat]);
+    io.sockets.emit("matrix", [arr, stat, currentSeason]);
 }, 1000)
 
