@@ -1,5 +1,4 @@
 var LivingCreature = require("./LivingCreature");
-var eated;
 
 module.exports = class Brownbear extends LivingCreature{
     constructor(x, y, index) {
@@ -66,9 +65,9 @@ module.exports = class Brownbear extends LivingCreature{
         super.yntrelVandak(ind,arr);
     }
 
-    move(i,arr,arj) {
+    move(i,arr,arj,stat) {
         if (this.ttd <= 0) {
-            this.kill(i,arj,arr);
+            this.kill(i,arj,arr,stat);
         }
         else {
             this.yntrelVandak(0,arr);
@@ -87,7 +86,7 @@ module.exports = class Brownbear extends LivingCreature{
     }
 
 
-    eat(i,arr,xot,kov,gayl,arj) {
+    eat(i,arr,xot,kov,gayl,arj,stat) {
         this.yntrelVandak(3,arr);
         if (this.can.length != 0) {
             var newgy = this.can[Math.floor(Math.random()* this.can.length)];
@@ -97,7 +96,7 @@ module.exports = class Brownbear extends LivingCreature{
             for (var i in gayl) {
                 if (gayl[i].x == x && gayl[i].y == y) {
                     gayl.splice(i, 1);
-                    eated = "Wolf";
+                    stat.Died_Wolfs++;
                 }
             }
             arr[this.y][this.x] = 0;
@@ -107,7 +106,7 @@ module.exports = class Brownbear extends LivingCreature{
                 this.ttd += 5;
             }
 
-            this.multiplying(arr,arj);
+            this.multiplying(arr,arj,stat);
         }
         else {
             this.yntrelVandak(2,arr);
@@ -119,7 +118,7 @@ module.exports = class Brownbear extends LivingCreature{
                 for (var i in kov) {
                     if (kov[i].x == x && kov[i].y == y) {
                         kov.splice(i, 1);
-                        eated = "Cow";
+                        stat.Died_Cows++;
                     }
                 }
                 arr[this.y][this.x] = 0;
@@ -129,7 +128,7 @@ module.exports = class Brownbear extends LivingCreature{
                     this.ttd += 3;
                 }
 
-                this.multiplying(arr,arj);
+                this.multiplying(arr,arj,stat);
             }
             else {
                 this.yntrelVandak(1,arr);
@@ -142,7 +141,7 @@ module.exports = class Brownbear extends LivingCreature{
                     for (var i in xot) {
                         if (xot[i].x == x && xot[i].y == y) {
                             xot.splice(i, 1);
-                            eated = "Grass";
+                            stat.Eated_Grass++;
                         }
                     }
                     arr[this.y][this.x] = 0;
@@ -152,21 +151,22 @@ module.exports = class Brownbear extends LivingCreature{
                         this.ttd += 1;
                     }
 
-                    this.multiplying(arr,arj);
+                    this.multiplying(arr,arj,stat);
                 }
                 else {
-                    this.move(i,arr,arj);
+                    this.move(i,arr,arj,stat);
                 }
             }
         }
     }
 
-    kill(i,arj,arr) {
+    kill(i,arj,arr,stat) {
         arr[this.y][this.x] = 0
+        stat.Died_Brownbears++;
         arj.splice(i, 1);
     }
 
-    multiplying(arr,arj) {
+    multiplying(arr,arj,stat) {
         this.mul++;
         this.yntrelVandak(3,arr);
         if (this.can.length != 0) {
@@ -176,17 +176,17 @@ module.exports = class Brownbear extends LivingCreature{
                     var y = this.can[i][1];
                     if (arj[i].x == x && arj[i].y == y && arj[i].gender != this.gender) {
                         if (this.mul >= 5) {
-                            var newgy = this.can[Math.floor(Math.random()* this.can.length)];
-                            var x = newgy[0];
-                            var y = newgy[1];
-                            arr[y][x] = 2;
-                            arj.push(new Wolf(x, y, 3));
+                            var newaj = this.can[Math.floor(Math.random()* this.can.length)];
+                            var x = newaj[0];
+                            var y = newaj[1];
+                            arr[y][x] = 4;
+                            arj.push(new Brownbear(x, y, 4));
+                            stat.Added_Brownbears++;
                             this.mul = 0;
                         }
                     }
                 }
             }
         }
-        return eated;
     }
 }

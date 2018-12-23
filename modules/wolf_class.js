@@ -43,9 +43,9 @@ module.exports = class Wolf extends LivingCreature{
         super.yntrelVandak(ind,arr);
     }
 
-    move(i,arr,gayl) {
+    move(i,arr,gayl,stat) {
         if (this.ttd <= 0) {
-            this.kill(i,gayl,arr);
+            this.kill(i,gayl,arr,stat);
         }
         else {
             this.yntrelVandak(0,arr);
@@ -80,7 +80,7 @@ module.exports = class Wolf extends LivingCreature{
     }
 
 
-    eat(i,arr,kov,gayl,eatedCows) {
+    eat(i,arr,kov,gayl,stat) {
         this.yntrelVandak(2,arr);
         if (this.can.length != 0) {
             var newgy = this.can[Math.floor(Math.random()* this.can.length)];
@@ -90,7 +90,7 @@ module.exports = class Wolf extends LivingCreature{
             for (var i in kov) {
                 if (kov[i].x == x && kov[i].y == y) {
                     kov.splice(i, 1);
-                    eatedCows++;
+                    stat.Died_Cows++;
                 }
             }
             arr[this.y][this.x] = 0;
@@ -100,19 +100,20 @@ module.exports = class Wolf extends LivingCreature{
                 this.ttd += 2;
             }
 
-            this.multiplying(arr,gayl);
+            this.multiplying(arr,gayl,stat);
         }
         else {
-            this.move(i,arr,gayl);
+            this.move(i,arr,gayl,stat);
         }
     }
 
-    kill(i,gayl,arr) {
+    kill(i,gayl,arr,stat) {
         arr[this.y][this.x] = this.goa;
+        stat.Died_Wolfs++;
         gayl.splice(i, 1);
     }
 
-    multiplying(arr,gayl) {
+    multiplying(arr,gayl,stat) {
         this.mul++;
         this.yntrelVandak(3,arr);
         if (this.can.length != 0) {
@@ -125,7 +126,8 @@ module.exports = class Wolf extends LivingCreature{
                             var newgy = this.can[Math.floor(Math.random()* this.can.length)];
                             var x = newgy[0];
                             var y = newgy[1];
-                            arr[y][x] = 2;
+                            arr[y][x] = 3;
+                            stat.Added_Wolfs++;
                             gayl.push(new Wolf(x, y, 3));
                             this.mul = 0;
 

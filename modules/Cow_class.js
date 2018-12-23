@@ -1,5 +1,4 @@
 var LivingCreature = require("./LivingCreature");
-var eated;
 
 module.exports = class Cow extends LivingCreature {
     constructor(x, y, index) {
@@ -28,9 +27,9 @@ module.exports = class Cow extends LivingCreature {
         super.yntrelVandak(ind,arr);
     }
 
-    move(i,arr,kov) {
+    move(i,arr,kov,stat) {
         if (this.ttd <= 0) {
-            this.kill(i,kov,arr);
+            this.kill(i,kov,arr,stat);
         }
         else {
             this.yntrelVandak(0,arr);
@@ -50,7 +49,7 @@ module.exports = class Cow extends LivingCreature {
 
 
 
-    eat(i,arr,xot,kov) {
+    eat(i,arr,xot,kov,stat) {
         this.yntrelVandak(1,arr);
         if (this.can.length != 0) {
             var newcw = this.can[Math.floor(Math.random()* this.can.length)];
@@ -60,7 +59,7 @@ module.exports = class Cow extends LivingCreature {
             for (var i in xot) {
                 if (xot[i].x == x && xot[i].y == y) {
                     xot.splice(i, 1);
-                    eated = "Grass";
+                    stat.Eated_Grass++;
                 }
             }
             arr[this.y][this.x] = 0;
@@ -70,19 +69,20 @@ module.exports = class Cow extends LivingCreature {
                 this.ttd++;
             }
 
-            this.multiplying(arr,kov);
+            this.multiplying(arr,kov,stat);
         }
         else {
-            this.move(i,arr,kov);
+            this.move(i,arr,kov,stat);
         }
     }
 
-    kill(i,kov,arr) {
+    kill(i,kov,arr,stat) {
         arr[this.y][this.x] = 0;
+        stat.Died_Cows++;
         kov.splice(i, 1);
     }
 
-    multiplying(arr,kov) {
+    multiplying(arr,kov,stat) {
         this.mul++;
         this.yntrelVandak(0,arr);
         if (this.mul >= 3) {
@@ -90,9 +90,9 @@ module.exports = class Cow extends LivingCreature {
             var x = newcw[0];
             var y = newcw[1];
             arr[y][x] = 2;
+            stat.Added_Cows++;
             kov.push(new Cow(x, y, 2));
             this.mul = 0;
         }
-        return eated;
     }
 }

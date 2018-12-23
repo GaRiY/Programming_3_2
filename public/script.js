@@ -30,7 +30,7 @@ function draw() {
             else if (arr[k][l] == 3) {
                 fill("Red");
             }
-            else if (arr[k][l] == 0) {
+            else if (arr[k][l] == 0 || arr[k][l] == 10) {
                 fill("#acacac");
             }
             else if (arr[k][l] == 4) {
@@ -39,9 +39,6 @@ function draw() {
 			else if (arr[k][l] == 5) {
                 fill("#FFBF00");
             }
-			else if (arr[k][l] == 10) {
-				fill("#acacac");
-			}
             var i = k * side;
             var o = l * side;
             rect(o, i, side, side);

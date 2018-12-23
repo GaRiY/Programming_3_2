@@ -30,9 +30,6 @@ var length = [];
 var seasons = ["Spring", "Summer", "Autumn", "Winter"];
 var currentSeason = seasons[0];
 var NumberForSeasonChanging = 0;
-var eatedCows = 0;
-var eatedWolfs = 0;
-var eatedGrass = 0;
 
 var express = require('express');
 var app = express();
@@ -78,72 +75,31 @@ length.push(kov.length);
 
 setInterval(function () {
     if (currentSeason != seasons[3]) {
-        var newClassCreating = human.check(xot, kov, gayl, arj, arr, W, H);
-        if (typeof (newClassCreating) != "undefined") {
-            if (newClassCreating[2] == "Grass") {
-                xot.push(new Grass(newClassCreating[0], newClassCreating[1], 1));
-            }
-            else if (newClassCreating[2] == "Cow") {
-                kov.push(new Cow(newClassCreating[0], newClassCreating[1], 2));
-            }
-            else if (newClassCreating[2] == "Wolf") {
-                gayl.push(new Wolf(newClassCreating[0], newClassCreating[1], 3));
-            }
-            else if (newClassCreating[2] == "Brownbear") {
-                arj.push(new Brownbear(newClassCreating[0], newClassCreating[1], 4));
-            }
-        }
+       human.check(xot, kov, gayl, arj, arr, W, H, stat);
         arr[0][0] = 5;
 
         for (i in arj) {
-            var varForStats1 = arj[i].eat(i, arr, xot, kov, gayl, arj);
-            if (varForStats1 == "Wolf"){
-                eatedWolfs++;
-            }
-            else if (varForStats1 == "Cow"){
-                eatedCows++;
-            }
-            else if (varForStats1 == "Grass"){
-                eatedGrass++;
-            }
-            varForStats1 = 0;
+            arj[i].eat(i, arr, xot, kov, gayl, arj, stat);
         }
-        stat.Died_Wolfs += eatedWolfs;
-        stat.Died_Cows += eatedCows;
-        stat.Eated_Grass += eatedGrass;
-        eatedWolfs = 0;
-        eatedCows = 0;
-        eatedGrass = 0;
-        length[0] = gayl.length;
-        length[3] = kov.length;
-        length[1] = xot.length;
 
     }
     else {
         for (i in arj) {
             arj[i].ttd -= 1;
         }
+        arr[0][0] = 10;
     }
     for (i in gayl) {
-        gayl[i].eat(i, arr, kov, gayl,eatedCows);
+        gayl[i].eat(i, arr, kov, gayl, stat);
     }
-    stat.Died_Cows += eatedCows;
-    eatedCows = 0;
-    length[3] = kov.length;
 
     for (i in kov) {
-        var varForStats3 = kov[i].eat(i, arr, xot, kov);
-        if (varForStats3 == "Grass"){
-            eatedGrass++;
-        }
-        varForStats3 = 0;
+        kov[i].eat(i, arr, xot, kov, stat);
+
     }
-    stat.Eated_Grass += eatedGrass;
-    eatedGrass = 0;
-    length[1] = xot.length;
 
     for (i in xot) {
-        xot[i].multiplying(arr, xot);
+        xot[i].multiplying(arr, xot, stat);
     }
 
     //stat = [Wolf,Grass,Brownbear,Cow,Died_Wolfs,Eated_Grass,Died_Brownbears,Died_Cows]
@@ -151,41 +107,6 @@ setInterval(function () {
     stat.Grass = xot.length;
     stat.Brownbear = arj.length;
     stat.Cow = kov.length;
-
-    //statistics calculation
-    if (gayl.length < length[0]) {
-        stat.Died_Wolfs += length[0] - gayl.length;
-        length[0] = gayl.length;
-    }
-    else if (gayl.length > length[0]) {
-        stat.Added_Wolfs += gayl.length - length[0];
-        length[0] = gayl.length;
-    }
-    if (xot.length < length[1]) {
-        stat.Eated_Grass += length[1] - xot.length;
-        length[1] = xot.length;
-    }
-    else if (xot.length > length[1]) {
-        stat.Added_Grass += xot.length - length[1];
-        length[1] = xot.length;
-    }
-    if (arj.length < length[2]) {
-        stat.Died_Brownbears += length[2] - arj.length;
-        length[2] = arj.length;
-    }
-    else if (arj.length > length[2]) {
-        stat.Added_Brownbears += arj.length - length[2];
-        length[2] = arj.length;
-    }
-    if (kov.length < length[3]) {
-        stat.Died_Cows += length[3] - kov.length;
-        length[3] = kov.length;
-    }
-    else if (kov.length > length[3]) {
-        stat.Added_Cows += kov.length - length[3];
-        length[3] = kov.length;
-    }
-    //Statistics calculation (end)
 
     //Season changing
     if (NumberForSeasonChanging == 10) {

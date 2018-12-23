@@ -1,3 +1,8 @@
+var Grass = require("./Grass_class");
+var Cow = require("./Cow_class");
+var Wolf = require("./Wolf_class");
+var Brownbear = require("./Brownbear_class");
+
 module.exports = class Human {
     constructor(W,H) {
         this.can = [];
@@ -58,7 +63,7 @@ module.exports = class Human {
         }
     }
 
-    check(xot,kov,gayl,arj,arr,W,H) {
+    check(xot,kov,gayl,arj,arr,W,H,stat) {
         if (xot.length == 0) {
             var newcord = this.yntrelVandak(1,arr,W,H);
 			if(typeof(newcord) != "undefined"){
@@ -66,8 +71,10 @@ module.exports = class Human {
 			var y = newcord[1];
 			this.x = 0;
 			this.y = 0;
-			var zang = [x,y,"Grass",5];
-			return zang;
+
+			stat.Added_Grass++;
+
+			xot.push(new Grass(x,y,1));
 			}
         }
         else if (kov.length == 0) {
@@ -77,8 +84,10 @@ module.exports = class Human {
 			var y = newcord[1];
 			this.x = 0;
 			this.y = 0;
-			var zang = [x,y,"Cow",5];
-			return zang;
+
+			stat.Added_Cows++;
+
+			kov.push(new Cow(x,y,2));
 			}
         }
         else if (gayl.length <= 1) {
@@ -88,8 +97,10 @@ module.exports = class Human {
 			var y = newcord[1];
 			this.x = 0;
 			this.y = 0;
-			var zang = [x,y,"Wolf",5];
-			return zang;
+
+			stat.Added_Wolfs++;
+
+			gayl.push(new Wolf(x, y, 3));
 			}
         }
         else if (arj.length <= 1) {
@@ -99,8 +110,10 @@ module.exports = class Human {
 			var y = newcord[1];
 			this.x = 0;
 			this.y = 0;
-			var zang = [x,y,"Brownbear",5];
-			return zang;
+
+			stat.Added_Brownbears++;
+
+			arj.push(new Brownbear(x, y, 4));
 			}
         }
 
