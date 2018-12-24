@@ -1,4 +1,5 @@
 var LivingCreature = require("./LivingCreature");
+var needToMul;
 
 module.exports = class Cow extends LivingCreature {
     constructor(x, y, index) {
@@ -22,20 +23,20 @@ module.exports = class Cow extends LivingCreature {
 
 
 
-    yntrelVandak(ind,arr) {
+    yntrelVandak(ind, arr) {
         this.getNewCoordinates();
-        super.yntrelVandak(ind,arr);
+        super.yntrelVandak(ind, arr);
     }
 
-    move(i,arr,kov,stat) {
+    move(i, arr, kov, stat) {
         if (this.ttd <= 0) {
-            this.kill(i,kov,arr,stat);
+            this.kill(i, kov, arr, stat);
         }
         else {
-            this.yntrelVandak(0,arr);
+            this.yntrelVandak(0, arr);
 
             if (this.can.length != 0) {
-                var newcw = this.can[Math.floor(Math.random()* this.can.length)];
+                var newcw = this.can[Math.floor(Math.random() * this.can.length)];
                 var x = newcw[0];
                 var y = newcw[1];
                 arr[y][x] = 2;
@@ -49,10 +50,10 @@ module.exports = class Cow extends LivingCreature {
 
 
 
-    eat(i,arr,xot,kov,stat) {
-        this.yntrelVandak(1,arr);
+    eat(i, arr, xot, kov, stat, currentSeason) {
+        this.yntrelVandak(1, arr);
         if (this.can.length != 0) {
-            var newcw = this.can[Math.floor(Math.random()* this.can.length)];
+            var newcw = this.can[Math.floor(Math.random() * this.can.length)];
             var x = newcw[0];
             var y = newcw[1];
             arr[y][x] = 2;
@@ -69,24 +70,33 @@ module.exports = class Cow extends LivingCreature {
                 this.ttd++;
             }
 
-            this.multiplying(arr,kov,stat);
+            this.multiplying(arr, kov, stat, currentSeason);
         }
         else {
-            this.move(i,arr,kov,stat);
+            this.move(i, arr, kov, stat);
         }
     }
 
-    kill(i,kov,arr,stat) {
+    kill(i, kov, arr, stat) {
         arr[this.y][this.x] = 0;
         stat.Died_Cows++;
         kov.splice(i, 1);
     }
 
-    multiplying(arr,kov,stat) {
+    multiplying(arr, kov, stat, currentSeason) {
+        if (currentSeason == "Summer") {
+            needToMul = 3 / 2;
+        }
+        else if(currentSeason == "Winter"){
+            needToMul = 3 * 2;
+        }
+        else {
+            needToMul = 3;
+        }
         this.mul++;
-        this.yntrelVandak(0,arr);
-        if (this.mul >= 3) {
-            var newcw = this.can[Math.floor(Math.random()* this.can.length)];
+        this.yntrelVandak(0, arr);
+        if (this.mul >= needToMul) {
+            var newcw = this.can[Math.floor(Math.random() * this.can.length)];
             var x = newcw[0];
             var y = newcw[1];
             arr[y][x] = 2;

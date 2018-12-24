@@ -79,7 +79,7 @@ setInterval(function () {
         arr[0][0] = 5;
 
         for (i in arj) {
-            arj[i].eat(i, arr, xot, kov, gayl, arj, stat);
+            arj[i].eat(i, arr, xot, kov, gayl, arj, stat, currentSeason);
         }
 
     }
@@ -90,16 +90,16 @@ setInterval(function () {
         arr[0][0] = 10;
     }
     for (i in gayl) {
-        gayl[i].eat(i, arr, kov, gayl, stat);
+        gayl[i].eat(i, arr, kov, gayl, stat, currentSeason);
     }
 
     for (i in kov) {
-        kov[i].eat(i, arr, xot, kov, stat);
+        kov[i].eat(i, arr, xot, kov, stat, currentSeason);
 
     }
 
     for (i in xot) {
-        xot[i].multiplying(arr, xot, stat);
+        xot[i].multiplying(arr, xot, stat, currentSeason);
     }
 
     //stat = [Wolf,Grass,Brownbear,Cow,Died_Wolfs,Eated_Grass,Died_Brownbears,Died_Cows]

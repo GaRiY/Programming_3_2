@@ -1,9 +1,10 @@
 var LivingCreature = require("./LivingCreature");
+var needToMul;
 
-module.exports = class Brownbear extends LivingCreature{
+module.exports = class Brownbear extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
-        this.gender = function(){var varForRandomNumber = Math.floor(Math.random()* 10);if(varForRandomNumber > 5){return "male"}else{return "female"}};
+        this.gender = function () { var varForRandomNumber = Math.floor(Math.random() * 10); if (varForRandomNumber > 5) { return "male" } else { return "female" } };
         this.ttd = 30;
 
     }
@@ -60,20 +61,20 @@ module.exports = class Brownbear extends LivingCreature{
         ];
     }
 
-    yntrelVandak(ind,arr){
+    yntrelVandak(ind, arr) {
         this.getNewCoordinates();
-        super.yntrelVandak(ind,arr);
+        super.yntrelVandak(ind, arr);
     }
 
-    move(i,arr,arj,stat) {
+    move(i, arr, arj, stat) {
         if (this.ttd <= 0) {
-            this.kill(i,arj,arr,stat);
+            this.kill(i, arj, arr, stat);
         }
         else {
-            this.yntrelVandak(0,arr);
+            this.yntrelVandak(0, arr);
 
             if (this.can.length != 0) {
-                var newgy = this.can[Math.floor(Math.random()* this.can.length)];
+                var newgy = this.can[Math.floor(Math.random() * this.can.length)];
                 var x = newgy[0];
                 var y = newgy[1];
                 arr[y][x] = 4;
@@ -86,10 +87,10 @@ module.exports = class Brownbear extends LivingCreature{
     }
 
 
-    eat(i,arr,xot,kov,gayl,arj,stat) {
-        this.yntrelVandak(3,arr);
+    eat(i, arr, xot, kov, gayl, arj, stat, currentSeason) {
+        this.yntrelVandak(3, arr);
         if (this.can.length != 0) {
-            var newgy = this.can[Math.floor(Math.random()* this.can.length)];
+            var newgy = this.can[Math.floor(Math.random() * this.can.length)];
             var x = newgy[0];
             var y = newgy[1];
             arr[y][x] = 4;
@@ -106,12 +107,12 @@ module.exports = class Brownbear extends LivingCreature{
                 this.ttd += 5;
             }
 
-            this.multiplying(arr,arj,stat);
+            this.multiplying(arr, arj, stat, currentSeason);
         }
         else {
-            this.yntrelVandak(2,arr);
+            this.yntrelVandak(2, arr);
             if (this.can.length != 0) {
-                var newgy = this.can[Math.floor(Math.random()* this.can.length)];
+                var newgy = this.can[Math.floor(Math.random() * this.can.length)];
                 var x = newgy[0];
                 var y = newgy[1];
                 arr[y][x] = 4;
@@ -128,13 +129,13 @@ module.exports = class Brownbear extends LivingCreature{
                     this.ttd += 3;
                 }
 
-                this.multiplying(arr,arj,stat);
+                this.multiplying(arr, arj, stat, currentSeason);
             }
             else {
-                this.yntrelVandak(1,arr);
+                this.yntrelVandak(1, arr);
 
                 if (this.can.length != 0) {
-                    var newgy = this.can[Math.floor(Math.random()* this.can.length)];
+                    var newgy = this.can[Math.floor(Math.random() * this.can.length)];
                     var x = newgy[0];
                     var y = newgy[1];
                     arr[y][x] = 4;
@@ -151,32 +152,38 @@ module.exports = class Brownbear extends LivingCreature{
                         this.ttd += 1;
                     }
 
-                    this.multiplying(arr,arj,stat);
+                    this.multiplying(arr, arj, stat, currentSeason);
                 }
                 else {
-                    this.move(i,arr,arj,stat);
+                    this.move(i, arr, arj, stat);
                 }
             }
         }
     }
 
-    kill(i,arj,arr,stat) {
+    kill(i, arj, arr, stat) {
         arr[this.y][this.x] = 0
         stat.Died_Brownbears++;
         arj.splice(i, 1);
     }
 
-    multiplying(arr,arj,stat) {
+    multiplying(arr, arj, stat, currentSeason) {
+        if (currentSeason == "Summer") {
+            needToMul = 5 / 2;
+        }
+        else {
+            needToMul = 5;
+        }
         this.mul++;
-        this.yntrelVandak(3,arr);
+        this.yntrelVandak(3, arr);
         if (this.can.length != 0) {
             for (var i in arj) {
                 for (var i in this.can) {
                     var x = this.can[i][0];
                     var y = this.can[i][1];
                     if (arj[i].x == x && arj[i].y == y && arj[i].gender != this.gender) {
-                        if (this.mul >= 5) {
-                            var newaj = this.can[Math.floor(Math.random()* this.can.length)];
+                        if (this.mul >= needToMul) {
+                            var newaj = this.can[Math.floor(Math.random() * this.can.length)];
                             var x = newaj[0];
                             var y = newaj[1];
                             arr[y][x] = 4;
