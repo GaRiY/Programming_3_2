@@ -10,7 +10,7 @@ module.exports = class Grass extends LivingCreature {
             needToMul = 8 * 2;
         }
         else if(currentSeason == "Autumn"){
-            needToMul = 8 * 4;
+            needToMul = 8 / 4;
         }
         else {
             needToMul = 8;
